@@ -1,0 +1,47 @@
+﻿@using Dojo_survey_with_validation__.Models
+@model User
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+
+
+
+
+<form asp-action="Create" asp-controller="Home" method="post">
+        <span asp-validation-for="Firstname"></span>
+        <input asp-for="Firstname">
+<br>
+   <span asp-validation-for="Location"></span>
+    <select asp-for="Location">
+
+  <option value="Seattle">Seattle</option>
+  <option value="Chicago">Chicago</option>
+  <option value="Dallas">Dallas</option>
+  <option value="San Jose">San Jose</option>
+  <br>
+</select>
+<br>
+   <span asp-validation-for="Language"></span>
+    <select asp-for="Language">
+      
+  <option value="Python">Python</option>
+  <option value="C#">C#</option>
+  <option value="English">English</option>
+  <option value="Sign Language">Sign Language</option>
+  </select>
+  <br>
+    <span asp-validation-for="Comment"></span>
+  <textarea asp-for="Comment" cols="30" rows="10"></textarea>
+ <button type="submit">Submit</button>
+
+</form>
