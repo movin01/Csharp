@@ -1,0 +1,24 @@
+λ dotnet build
+Microsoft (R) Build Engine version 15.9.20+g88f5fadfbe for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Restore completed in 34.47 ms for D:\CODING DOJO\c_sharp\FirstCSharp\FirstCSharp.csproj.
+  FirstCSharp -> D:\CODING DOJO\c_sharp\FirstCSharp\bin\Debug\netcoreapp2.2\FirstCSharp.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.76
+
+D:\CODING DOJO\c_sharp\FirstCSharp
+λ dotnet run
+Hello World!
+
+D:\CODING DOJO\c_sharp\FirstCSharp
+λ dotnet "D:\CODING DOJO\c_sharp\FirstCSharp\bin\Debug\netcoreapp2.2\FirstCSharp.dll"
+Hello World!
+
+D:\CODING DOJO\c_sharp\FirstCSharp
+λ dotnet run
+Hello World!
