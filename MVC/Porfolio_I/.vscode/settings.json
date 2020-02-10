@@ -1,0 +1,10 @@
+{
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.includeLanguages": {
+        "javascript": "javascript",
+        "vue-html": "html",
+        "php": "html",
+        "blade": "html",
+        "razor": "html",
+    },
+}
