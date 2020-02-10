@@ -1,0 +1,49 @@
+@model WrapperViewModel
+@using Chef_N_Dishes.Models
+
+
+<h1>Chefs|Dishes</h1>
+<a href="/ListofDishpage">ListofDishpage</a>
+
+<h1>Add a new dish!</h1>
+<th><h4><a href="/">Home</a></h4></th>
+<body>
+     <form asp-action="CreateDish" asp-controller="Home" method="post">
+
+
+        <span asp-validation-for="OneDish.DishName"></span>
+        <label asp-for="OneDish.DishName"></label>
+        <input asp-for="OneDish.DishName">
+    <hr> 
+        <span asp-validation-for="OneDish.Calories"></span>
+        <label asp-for="OneDish.Calories"></label>
+        <input asp-for="OneDish.Calories">
+    <hr>
+        <span asp-validation-for="OneDish.Description"></span>
+        <label asp-for="OneDish.Description"></label>
+        <textarea asp-for="OneDish.Description" rows="5" cols="50"></textarea> 
+    <hr>
+        <span asp-validation-for="OneDish.Tastiness"></span>
+        <label asp-for="OneDish.Tastiness"></label>
+        <select asp-for="OneDish.Tastiness">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    <hr>
+    
+        <span asp-validation-for="OneDish.ChefID"></span>
+        <label asp-for="OneDish.ChefID"></label>
+        <select asp-for="OneDish.ChefID">
+            @foreach( var b in Model.AllChefs){
+            <option value="@b.ChefId">@b.FirstName</option>
+            }
+        </select>
+    <hr>  
+
+        <button type="submit" class="CreateDish ">Add Dish</button>
+    </form>
+</body>
+</html>

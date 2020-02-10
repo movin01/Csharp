@@ -1,0 +1,28 @@
+@using Login_and_Registration.Models
+@model User
+
+
+<form asp-action="login" asp-controller="Home" method="post">
+  <div class="container">
+    <h1>Login</h1>
+    <a href="/">Register</a>
+    <p>Please fill in this form to create an account.</p>
+    <hr>
+
+    <span asp-validation-for="Email" ></span><br>
+    <label asp-for="Email"></label>
+    <input asp-for="Email">
+<br>
+    <span asp-validation-for="Password" ></span><br>
+    <label asp-for="Password"></label>
+    <input asp-for="Password">
+<br>
+
+    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+    <button type="submit" class="registerbtn">Login</button>
+  </div>
+
+  <div class="container signin">
+    <p>Already have an account? <a href="#">Sign in</a>.</p>
+  </div>
+</form>

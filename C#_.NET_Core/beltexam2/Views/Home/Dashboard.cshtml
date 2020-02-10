@@ -1,0 +1,36 @@
+@using beltexam2.Models
+@model WrapperViewModel
+
+
+
+
+
+
+<br>
+<table class ="table table-striped">
+@foreach (var b in Model.AllHobbies){
+<tr>
+    @* <th><h2>Name Of hobby</h2> </th> *@
+               <td>
+                   @* <p><a href="/HobbyDescriptionpage/@b.HobbyId">@b.Responses.Count Enthusiasts</a></p> *@
+                         @b.Responses.Count Enthusiasts
+                   <br> 
+                     <h3>Hobby Name:</h3>
+                   <a href="/@b.HobbyId">@b.HobbyName</a>
+                   <br>
+        @* <h4><a href="/@b.CreatorId">@b.Creator.FirstName</a></h4> *@
+           <a href="/addtohobbys/@b.HobbyId">Add to Hobby</a>
+           </td>
+</tr>
+
+}
+
+</table>
+
+<br>
+
+
+
+
+<a href="/Logout">Logout</a><br>
+<a href="/CreateHobbypage">CreateHobbypage</a><br>

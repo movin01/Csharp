@@ -1,0 +1,55 @@
+@using beltexam1.Models
+@model WrapperViewModelAll
+
+<h2>Welcome, @Model.LoggedInUser.FirstName!</h2>
+<br>
+
+ <a href="/Dashboard">Dashboard</a><br>
+
+<form action="/idea_validation" method="POST">
+<textarea asp-for="OneIdea.goodIdea" rows="5" cols="80"></textarea>
+<input type="submit" value="Add Your Idea!">
+<p>@Model.OneIdea.goodIdea</p> 
+</form>
+
+
+</div>
+
+
+<br>
+
+<table class ="table table-striped">
+@foreach (var b in Model.AllIdeas){
+<tr>
+    <th><h2>New Idea</h2> <p>Posted by:</p>
+        <h4><a href="@b.CreatorId">@b.Creator.Alias</a></h4> @b.goodIdea
+    <td>
+            <p><a href="/Likerspage/@b.IdeaId">@b.Responses.Count People</a></p> 
+            @{
+                if(@b.CreatorId == @Model.LoggedInUser.UserId)
+                {
+                    <a href="/Delete/@b.IdeaId">Delete</a>
+                }
+                 else if (@b.Responses.Any (c => c.UserId == @Model.LoggedInUser.UserId))
+                {
+                    <a href="/Unlike/@b.IdeaId">Unlike</a>
+                }
+                else 
+                {
+                    <a href="/Like/@b.IdeaId">Like</a> 
+                }
+            }
+    </td>
+</tr>
+}
+
+</table>
+
+
+<br>
+
+<a href="/NewIdeaPage">NewIdeaPage</a><br>
+
+
+
+

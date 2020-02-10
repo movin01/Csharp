@@ -1,0 +1,24 @@
+<h1>Create a weddingpage</h1>
+@using WeddingPlanner.Models
+@model Wedding
+
+<form asp-action="CreateWedding" asp-controller="Home" method="post">
+  <div class="container">
+          <span asp-validation-for="WedderOne" ></span><br>
+    <label asp-for="WedderOne"></label>
+    <input asp-for="WedderOne">
+    <br>
+        <span asp-validation-for="WedderTwo" ></span><br>
+    <label asp-for="WedderTwo"></label>
+    <input asp-for="WedderTwo">
+    <br>
+        <span asp-validation-for="Date" ></span><br>
+    <input type="Date" asp-for="Date">
+    <span asp-validation-for="Address" ></span><br>
+    <label asp-for="Address"></label>
+    <input asp-for="Address">
+    <input type="submit" >Create</button>
+</form>
+<br>
+<a href="/Logout">Logout</a>
+

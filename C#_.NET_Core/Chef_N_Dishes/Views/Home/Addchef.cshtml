@@ -1,0 +1,26 @@
+
+@{
+    ViewData["Title"] = "Chef's_N_Dishes";
+}
+
+@using Chef_N_Dishes.Models
+@model Chef
+
+<form asp-action="CreateChef" asp-controller="Home" method="post">
+  <div class="container">
+    <h1>Add A Chef!</h1>
+    <hr>
+    <span asp-validation-for="FirstName" ></span><br>
+    <label asp-for="FirstName"></label>
+    <input asp-for="FirstName">
+<br>
+    <span asp-validation-for="LastName" ></span><br>
+    <label asp-for="LastName"></label>
+    <input asp-for="LastName">
+<br>
+  Date Of Birth(month and year):
+
+<span asp-validation-for="DateofBirth" ></span><br>
+  <input asp-for="DateofBirth">
+<button type="submit" class="CreateChefbtn">Add Chef</button>
+</form>

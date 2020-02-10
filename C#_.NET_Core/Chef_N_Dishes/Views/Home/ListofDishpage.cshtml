@@ -1,0 +1,31 @@
+@model WrapperViewModel
+@using Chef_N_Dishes.Models
+
+<h1>List of dishes!</h1>
+
+<a href="/AddChef">Add a new Chef</a>
+<br>
+<a href="/AddDishespage">Add a new Dish</a>
+<hr>
+
+<h1>Chefs|Dishes</h1>
+
+<div>
+<table class="table table-striped">
+        <tr>
+        <th>Name of Dish</th>
+        <th>Chef</th>
+        <th>Tastiness</th>
+        <th>Calories</th>
+        </tr>
+@foreach(var b in Model.AllDishes){
+        <tr>
+        <td>@b.DishName</td>
+        <td>@b.Creator.FirstName</td>
+        <td>@b.Tastiness</td>
+        <td>@b.Calories</td>
+       </tr>
+}
+    </table>
+</div>
+

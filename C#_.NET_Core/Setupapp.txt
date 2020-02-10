@@ -1,0 +1,279 @@
+FOR NOW
+dotnet new mvc --no-https -o "ProjectName"
+cd into that project
+code .
+Go to startup.cs and comment out************************************************************************************
+services.Configure<CookiePolicyOptions>(options =>
+   {
+        // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+        options.CheckConsentNeeded = context => true;
+        options.MinimumSameSitePolicy = SameSiteMode.None;
+   });
+**********************************************************************************************************************
+Also comment out
+>>>app.UseCookiePolicy();
+
+And in _Layout.cshtml Home/Shared folder
+>>><partial name="_CookieConsentPartial"></partial>  
+
+Insert in User.cs in Models Folder (**Doesn't have to be User, it can be
+whatever you want to name it**)
+using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace "NAMESPACE".Models
+{
+    public class User
+    {
+	[Key]
+	
+        [Required]
+        [MinLength(3)]
+        public string firstname { get; set; }
+
+        [Required]
+        [MinLength(3)]
+        public string lastname { get; set; }
+
+        [Required]
+        [MinLength(2)]
+        public int age { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string emailaddress { get; set; }
+
+        [Required]
+        [MinLengthAttribute(8)]
+        public string password { get; set; }
+    }
+}
+
+To use session also add in HomeController.cs
+>>>using Microsoft.AspNetCore.Http;
+
+To use session also add in Startup.cs (DO NOT COPY AND PASTE THE WHOLE THING)
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddSession();    // add this line
+    
+}
+// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    // other configurations
+    app.UseSession();    // add this line
+    app.UseMvc();        // make sure UseMvc comes last!!
+}
+
+To connect to Entity Framework for databases type in Cmder
+>>>dotnet add package Pomelo.EntityFrameworkCore.MySql -v 2.2.0
+
+Go to Models and create a file called MyContext.cs
+>>>(The context class is what actually forms the relationship between our 
+models and the database. )COPY AND PASTE THE CODE BELOW
+using Microsoft.EntityFrameworkCore;
+
+namespace NAMESPACE.Models
+{
+    public class MyContext : DbContext
+    {
+        public MyContext(DbContextOptions options) : base(options){}
+        public DbSet<User> Users { get; set; }
+        public DbSet<LoginUser> LoginUser { get; set; }
+    }
+}
+
+ *****************************************************************
+FOR CREATING PARTIALS
+
+Go to _ViewImport.cshtml and add
+>>>@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+Make a new file called NavPartial.cshtml in Views/Home and insert
+<nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Me</a></li>
+    </ul>
+</nav>
+
+To load a partial go to Index.cshtml and insert
+<partial name="NavPartial"/>
+<h1>Welcome to this site!</h1>
+<p>The rest of your View content here...</p>
+
+
+*********************************************************************
+
+
+
+
+__________________________________________________________________________
+To add MySql to my project
+>>>dotnet add package MySql.Data -v 8.0.16
+
+To make Migrations
+>>>dotnet ef migrations add NAMESPACE
+>>>dotnet ef database update
+***************************************************************
+ONLY USE IF YOU DONT USE
+dotnet new mvc --no-https -o NAMESPACE
+In Terminal
+___________________________________________________________
+Text file for necessary Copy/Paste into Entity Projects
+Make a new file in Controllers folder called UserController.cs
+>>>>>>>>>>YOURNAMESPACEController.cs
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using YOURNAMESPACE.Models;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+namespace YOURNAMESPACE.Controllers
+{
+    public class YOURNAMESPACEController : Controller
+    {
+        private MyContext dbContext;
+     
+        // here we can "inject" our context service into the constructor
+        public YOURNAMESPACEController(MyContext context)
+        {
+            dbContext = context;
+        }
+     
+        [HttpGet]
+        [Route("")]
+        public IActionResult Index()
+        {
+            HttpContext.Session.Clear();
+            return View();
+        }
+    }
+ }
+________________________________________________________________________________
+Go to MyConext.cs file
+
+Context.cs
+using Microsoft.EntityFrameworkCore;
+ 
+namespace YOURNAMESPACE.Models
+{
+	public class MyContext : DbContext
+	{
+		public MyContext(DbContextOptions options) : base(options) { }
+           	public DbSet<ClassName> TableName {get;set;} //as many as needed
+       	}
+}
+________________________________________________________________________________
+________________________________________________________________________________
+appsettings.json (overwrite file)
+{
+  "DBInfo":
+  {
+      "Name": "MySQLconnect",
+      "ConnectionString": "server=localhost;userid=root;password=root;port=3306;database=mydb;SslMode=None"
+  }
+}
+
+******change "mydb" to whatever name you want**********
+________________________________________________________________________________
+Startup.cs (overwrite file)
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using YOURNAMESPACE.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace YOURNAMESPACE
+{
+    public class Startup
+    {
+        public IConfiguration Configuration{get;}
+        public Startup(IConfiguration configuration)
+        {
+    	    Configuration = configuration;
+        }
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddDbContext<MyContext>(options => options.UseMySql(Configuration["DBInfo:ConnectionString"]));
+	    services.AddSpaStaticFiles();
+            services.AddSession();
+            services.AddMvc();
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            app.UseStaticFiles();
+            app.UseSession();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
+    }
+}
+_______________________________________________________________________________________________________________________________________________________
+Insert this into your User.cs Controller
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using YOURNAMESPACE.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
+
+namespace YOURNAMESPACE.Controllers
+{
+    public static class SessionExtensions
+{
+    public static void SetObjectAsJson(this ISession session, string key, object value)
+    {
+        session.SetString(key, JsonConvert.SerializeObject(value));
+    }
+    public static User GetObjectFromJson(this ISession session, string key)
+    {
+        string value = session.GetString(key);
+        return value == null ? default(User) : JsonConvert.DeserializeObject<User>(value);
+    }
+}
+    public class UserController : Controller
+
+**********************************************************************************************************
+
+TO MAKEMIGRATIONS YOU NEED TO PUT
+>>>dotnet ef migrations add "ProjectName or Namespace"
+>>>dotnet ef database update

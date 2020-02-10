@@ -1,0 +1,12 @@
+@using WeddingPlanner.Models
+@model WrapperViewModelAll
+
+<h2>@Model.OneWedding.WedderOne and @Model.OneWedding.WedderTwo's Wedding </h2>
+<h3> Date: @Model.OneWedding.Date.ToLongDateString()</h3>
+<h3> Guests: </h3>
+@foreach (var g in Model.OneWedding.Responses) 
+{
+    <p>
+        @g.Guest.FirstName
+    </p>
+}

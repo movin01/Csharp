@@ -1,0 +1,16 @@
+@using beltexam1.Models
+@model Idea
+
+<a href="/Dashboard">Dashboard</a><br>
+
+<form asp-action="CreateIdea" asp-controller="Home" method="post">
+<div class="container">
+    <span asp-vallidation-for="goodIdea"></span><br>
+    <label asp-for="goodIdea"></label>
+    <input asp-for="goodIdea">
+       <input type="submit" >Add Idea!</button>
+</form>
+    <br>
+
+
+</div>

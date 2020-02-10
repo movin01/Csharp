@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Chef's_N_Dishes";
+}
+@using Chef_N_Dishes.Models
+@model List<Chef>
+
+<a href="/AddChef">Add a new Chef</a>
+<br>
+<a href="/AddDishespage">Add a new Dish</a>
+<br>
+<a href="/ListofDishpage">ListofDishpage</a>
+<hr>
+
+<div>
+<table class="table table-striped">
+        <tr>
+        <th>Name of Chef</th>
+        <th>Age</th>
+        <th># of Dishes</th>
+        </tr>
+@foreach( var b in Model){
+        <tr>
+        <td>@b.FirstName</td>
+        <td>@b.DateofBirth.ToShortDateString()</td>
+        <td>@b.CreatedDishes.Count</td>
+       </tr>
+}
+    </table>
+</div>
+

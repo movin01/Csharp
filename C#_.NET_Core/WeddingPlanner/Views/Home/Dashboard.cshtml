@@ -1,0 +1,39 @@
+@using WeddingPlanner.Models
+@model WrapperViewModelAll
+
+<h2> Welcome to Wedding Planner, @Model.LoggedInUser.FirstName</h2>
+<table class ="table table-striped">
+    <tr>
+        <th>Happy Couple</th>
+        <th>Address</th>
+        <th>Guest</th>
+        <th>Action</th>
+    </tr>
+@foreach (var b in Model.AllWeddings){
+    <tr>
+        <td><a href="/@b.WeddingID">@b.WedderOne &amp;
+        @b.WedderTwo</a></td>
+        <td>@b.Address</td>
+        <td>@b.Responses.Count</td>
+        <td>
+            @{
+                if(@b.CreatorId == @Model.LoggedInUser.UserId)
+                {
+                    <a href="/Delete/@b.WeddingID">Delete</a>
+                }
+                else if (@b.Responses.Any (c => c.UserId == @Model.LoggedInUser.UserId))
+                {
+                    <a href="/Leave/@b.WeddingID">UNRSVP</a>
+                }
+                else 
+                {
+                    <a href="/RSVP/@b.WeddingID">RSVP</a>
+                }
+            }
+        </td>
+    </tr>
+}
+</table>
+
+<a href="/NewWeddingPage">NewWeddingPage</a><br>
+<a href="/Logout">Logout</a>

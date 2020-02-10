@@ -1,0 +1,19 @@
+@using beltexam1.Models
+@model WrapperViewModelAll
+
+
+<table class ="table table-striped">
+<tr>
+    <th>First Name</th>
+        <th>Email</th>
+        <th>Alias</th>
+</tr>
+</tr>
+<td>@Model.OneIdea.Creator.FirstName</td>
+<td>@Model.OneIdea.Creator.Email</td>
+<td>@Model.OneIdea.Creator.Alias</td>
+</tr>
+
+</table>
+
+<a href="/Dashboard">Dashboard</a><br>

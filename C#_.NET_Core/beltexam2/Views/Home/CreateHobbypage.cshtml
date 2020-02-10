@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@using beltexam2.Models
+@model Hobby
+
+
+
+
+
+
+<form asp-action="CreateHobby" asp-controller="Home" method="post">
+    <span asp-validation-for="HobbyName" ></span><br>
+    <label asp-for="HobbyName"></label>
+    <input asp-for="HobbyName">
+<br>
+    <span asp-vallidation-for="HobbyDescription"></span><br>
+    <label asp-for="HobbyDescription"></label>
+    <input asp-for="HobbyDescription">
+       <input type="submit" >Add Hobby!</button>
+</form>
+    <br>
+
+
+<a href="/Dashboard">Dashboard</a><br>
+<a href="/Logout">Logout</a><br>

@@ -1,0 +1,31 @@
+@using beltexam1.Models
+@model WrapperViewModelAll
+
+
+<h2>@Model.OneIdea.Creator.FirstName:</h2>
+@Model.OneIdea.goodIdea
+<tr>
+    <td><h2>People Who Liked this post!</h2></td>
+</tr>
+<table class ="table table-striped">
+    <tr>
+        <th>Alias</th>
+        <th>Name</th>
+  
+    </tr>
+@foreach(Association g in Model.OneIdea.Responses) 
+{
+<tr>
+    <td><a href=""></a>
+        @g.Like.Alias
+        </td>
+    <td>
+        @g.Like.FirstName
+        </td>
+</tr>
+}
+</table>
+
+<a href="/NewIdeaPage">NewIdeaPage</a><br>
+
+<a href="/Dashboard">Dashboard</a><br>
